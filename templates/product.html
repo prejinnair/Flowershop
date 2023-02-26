@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!--<div class="row my_prod_row_class">-->
+<!--    <div class="mx_auto">-->
+<!--        <p><a href="{% url 'flowershopapp:allflowers' %}">Home</a> | <a href="{{ product.get_url}}">{{product.category}}</a>  </p>-->
+<!--    </div>-->
+<!--</div>-->
+ <br>
+<div class="container">
+
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <div style="min-width:18rem;">
+            <img src="{{ product.img.url }}" alt="{{product.name}}" style="width:400px;height:300px">
+        </div>
+    </div>
+
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div>
+            <h1 class="my_prod_title">Item : {{product.name}}</h1>
+            <p> Price: ${{product.price}}</p>
+
+            <p class="text-justify my_prod_text">{{product.desc}}</p>
+            {% if product.stock <= 0 %}
+            <p class="text-justify my_prod_text "><b>OUT OF STOCK</b></p>
+            {% else %}
+            <a class="btn btn-secondary" href="{% url 'cartapp:add_cart' product.id %}">Add To Cart</a>
+            {% endif %}
+
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock%}

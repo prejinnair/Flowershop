@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if products %}
+        {{products.desc|truncatewords:155 }}
+    {% else %}
+        Welcome to PJ-KART where you find Everything you Need.!!!
+    {% endif %}
+{% endblock%}
+
+{% block title %}
+     {% if products %}
+        {{products.name }} - PJ-Flowers
+    {% else %}
+        Welcome to Our Store - PJ Flowers
+    {% endif %}
+{% endblock%}
+
+{% block content %}
+
+  {% csrf_token %}
+
+    <div>
+        <div class="row my_row_class">
+            <div class="text-center">
+            <p></p>
+            </div>
+        </div>
+
+
+
+
+<!--<div class="mx_auto">-->
+<!--    {% if category %}-->
+<!--    <img class="my_image" src="{{ category.image.url}}" alt="{{category.name}}">-->
+<!--</div><br>-->
+<!--<div>-->
+<!--        <h1 class="text-center my_title">{{category.name}}</h1>-->
+<!--        <p class="text-justify">{{category.desc}}</p>-->
+<!--</div>-->
+    {% else %}
+<!--<div class="'text-center'" >-->
+<!--    <img class="my__image my_image_padding" src="{% static 'img/banner.png' %}" alt="Our Products">-->
+<!--</div><br>-->
+<div>
+    <h1 class="text-center my_title">
+        Our Product Collection
+    </h1>
+    <p class="text-justify">
+        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
+    </p>
+</div>
+      {% endif %}
+<div class="container">
+    <div class="row mx_auto">
+        {% for i in flower_list %}
+        <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-lg-4">
+
+
+    <div class="card text-center" style="min-width:18rem;margin-bottom:30px">
+        <a href="{% url 'flowershopapp:f_details' i.id %}"><img class="card-img-top" height="300px;" src="{{i.img.url}}" alt="{{i.name}}"></a>
+    <div class="card-body"  style="height=300px";>
+        <h4>
+            {{i.name}}
+        </h4>
+        <p> Price:{{i.price}}</p>
+        <p> Stock Available:{{i.stock}}</p>
+
+            </div>
+                </div>
+
+         </div>
+        {% endfor %}
+    </div>
+    <div class="mx_auto">
+        {% if products.paginator.num_pages > 1 %}
+        <hr>
+        <div class="text-center">
+            {% for pg in products.paginator.page_range %}
+            <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} active {% endif %}">{{pg}}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <br>
+</div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+          <script src="{% static 'js/popper.min.js' %}"></script>
+          <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+          <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+          <script src="{% static 'js/plugin.js' %}"></script>
+          <!-- sidebar -->
+          <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+          <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+{% endblock%}
